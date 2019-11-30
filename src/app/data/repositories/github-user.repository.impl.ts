@@ -19,6 +19,7 @@ export class GithubUserRepositoryImpl implements GithubUserRepository {
   ) {}
 
   public get(username: string): Observable<GithubUserEntity> {
+    // TODO: Fetch local server if remote is dead.
     return this.remoteDataSource
       .fetchUser(username)
       .pipe(map(this.mapper.mapFrom));
