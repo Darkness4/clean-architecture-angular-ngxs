@@ -5,25 +5,18 @@ import { GithubUserEntity } from 'src/app/domain/entities/github-user.entity';
 import { GithubRemoteDataSource } from '../datasources/github-remote.data-source';
 import { GithubUserMapper } from 'src/app/domain/repositories/github-user-repository-mapper';
 import { Injectable } from '@angular/core';
+import { GithubLocalDataSource } from '../datasources/github-local.data-source';
 
 @Injectable({
   providedIn: 'root'
 })
-class GithubUserRepositoryImpl implements GithubUserRepository {
-  public remoteDataSource: GithubRemoteDataSource;
-  public localDataSource: GithubRemoteDataSource;
+export class GithubUserRepositoryImpl implements GithubUserRepository {
   private readonly mapper = new GithubUserMapper();
 
-  construtor({
-    remoteDataSource,
-    localDataSource
-  }: {
-    remoteDataSource: GithubRemoteDataSource;
-    localDataSource: GithubRemoteDataSource;
-  }) {
-    this.remoteDataSource = remoteDataSource;
-    this.localDataSource = localDataSource;
-  }
+  constructor(
+    private remoteDataSource: GithubRemoteDataSource,
+    private localDataSource: GithubLocalDataSource
+  ) {}
 
   public get(username: string): Observable<GithubUserEntity> {
     return this.remoteDataSource

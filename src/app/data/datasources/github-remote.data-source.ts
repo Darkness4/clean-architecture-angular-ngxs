@@ -14,7 +14,7 @@ export class GithubRemoteDataSourceImpl implements GithubRemoteDataSource {
   constructor(private client: HttpClient) {}
 
   fetchUser(username: string): Observable<GithubUserModel> {
-    throw this.client.get<GithubUserModel>(
+    return this.client.get<GithubUserModel>(
       `https://api.github.com/users/${username}`
     );
   }
