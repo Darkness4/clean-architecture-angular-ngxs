@@ -7,14 +7,10 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class GetGithubUser implements Usecase<GithubUserEntity, Params> {
+export class GetGithubUser implements Usecase<GithubUserEntity, string> {
   constructor(private repository: GithubUserRepository) {}
 
-  execute(params: Params): Observable<GithubUserEntity> {
-    return this.repository.get(params.username);
+  execute(username: string): Observable<GithubUserEntity> {
+    return this.repository.get(username);
   }
-}
-
-export class Params {
-  constructor(public username: string) {}
 }

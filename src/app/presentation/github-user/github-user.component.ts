@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { GetGithubUser, Params } from 'src/app/domain/usecases/get-github-user';
 import { GithubUserEntity } from 'src/app/domain/entities/github-user.entity';
+import { Store, Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { GithubUserState } from './github-user.state';
+import { FetchGithubUser } from './github-user.actions';
 
 @Component({
   selector: 'app-github-user',
@@ -8,15 +11,15 @@ import { GithubUserEntity } from 'src/app/domain/entities/github-user.entity';
   styleUrls: ['./github-user.component.scss']
 })
 export class GithubUserComponent implements OnInit {
-  user: GithubUserEntity;
+  @Select(GithubUserState.getGithubUser) user$: Observable<GithubUserEntity>;
 
-  constructor(private getGithubUser: GetGithubUser) {}
+  constructor(private store: Store) {}
 
   ngOnInit() {
-    this.getGithubUser
-      .execute(new Params('Darkness4'))
-      .subscribe((value: GithubUserEntity) => {
-        this.user = value;
-      });
+    this.fetchGithubUser('Darkness4');
+  }
+
+  fetchGithubUser(username: string) {
+    this.store.dispatch(new FetchGithubUser(username));
   }
 }

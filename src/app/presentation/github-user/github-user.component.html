@@ -1,3 +1,6 @@
 Loaded Github
-{{ user.name }}
-{{ user.id }}
+
+<div *ngIf="user$ | async as user">
+  {{ user.name }}
+  {{ user.id }}
+</div>

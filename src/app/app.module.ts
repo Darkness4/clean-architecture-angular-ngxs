@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { DataModule } from './data/data.module';
 import { CoreModule } from './core/core.module';
 import { PresentationModule } from './presentation/presentation.module';
+import { DomainModule } from './domain/domain.module';
+
 import { GithubUserRepository } from './domain/repositories/github-user.repository';
 import { GithubUserRepositoryImpl } from './data/repositories/github-user.repository.impl';
 import {
@@ -17,7 +19,6 @@ import {
   GithubRemoteDataSource
 } from './data/datasources/github-remote.data-source';
 import { GetGithubUser } from './domain/usecases/get-github-user';
-import { DomainModule } from './domain/domain.module';
 
 @NgModule({
   declarations: [AppComponent],
