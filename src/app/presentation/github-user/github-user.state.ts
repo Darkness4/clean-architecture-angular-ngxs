@@ -1,46 +1,58 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
-import { GithubUserEntity } from 'src/app/domain/entities/github-user.entity';
 import { GetGithubUser } from 'src/app/domain/usecases/get-github-user';
-import { tap, catchError } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
-import { throwError } from 'rxjs';
-import { FetchGithubUser } from './github-user.actions';
+import { catchError, mergeMap, tap } from 'rxjs/operators';
 
-export interface GithubUserStateModel {
-  user: GithubUserEntity;
-}
+import {
+  FetchGithubUser,
+  FetchGithubUserFail,
+  FetchGithubUserSuccess
+} from './github-user.actions';
+import { GithubUserStateModel } from './github-user-state.model';
 
 @State<GithubUserStateModel>({
   name: 'github_user',
   defaults: {
-    user: null
+    user: null,
+    error: null,
+    loading: false
   }
 })
 export class GithubUserState {
   constructor(private getGithubUser: GetGithubUser) {}
 
-  @Selector()
-  static getGithubUser(state: GithubUserStateModel) {
-    return state.user;
-  }
-
   @Action(FetchGithubUser)
   fetchGithubUser(
-    { getState, setState }: StateContext<GithubUserStateModel>,
+    ctx: StateContext<GithubUserStateModel>,
     { username }: FetchGithubUser
   ) {
-    const state = getState();
     return this.getGithubUser.execute(username).pipe(
-      tap(user => {
-        setState({
-          ...state,
-          user
+      tap(() => {
+        ctx.patchState({
+          loading: true
         });
       }),
-      catchError((err: HttpErrorResponse) => {
-        alert('Something happened. Please try again.');
-        return throwError(new Error(err.message));
+      mergeMap(user => {
+        return ctx.dispatch(new FetchGithubUserSuccess(user));
+      }),
+      catchError(error => {
+        return ctx.dispatch(new FetchGithubUserFail(error));
       })
     );
+  }
+
+  @Action(FetchGithubUserFail)
+  fetchGithubUserFail(
+    ctx: StateContext<GithubUserStateModel>,
+    { error }: FetchGithubUserFail
+  ) {
+    ctx.setState({ user: null, loading: false, error });
+  }
+
+  @Action(FetchGithubUserSuccess)
+  fetchGithubUserSuccess(
+    ctx: StateContext<GithubUserStateModel>,
+    { user }: FetchGithubUserSuccess
+  ) {
+    ctx.setState({ user, loading: false, error: null });
   }
 }
