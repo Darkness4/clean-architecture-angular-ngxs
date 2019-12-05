@@ -15,9 +15,9 @@ export class GithubUserComponent implements OnInit {
     GithubUserEntity
   >;
 
-  // @Select(GithubUserSelectors.getLoading) loading$: Observable<boolean>;
+  @Select(GithubUserSelectors.getLoading) loading$: Observable<boolean>;
 
-  // @Select(GithubUserSelectors.getError) error$: Observable<any>;
+  @Select(GithubUserSelectors.getError) error$: Observable<any>;
 
   constructor(private store: Store) {}
 
