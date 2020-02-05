@@ -6,7 +6,7 @@ export class GithubUserMapper extends Mapper<
   GithubUserEntity,
   GithubUserModel
 > {
-  mapFrom(param: GithubUserEntity): GithubUserModel {
+  mapFrom(param: GithubUserModel): GithubUserEntity {
     return {
       login: param.login,
       id: param.id,
@@ -42,7 +42,7 @@ export class GithubUserMapper extends Mapper<
     };
   }
 
-  mapTo(param: GithubUserModel): GithubUserEntity {
+  mapTo(param: GithubUserEntity): GithubUserModel {
     return {
       login: param.login,
       id: param.id,
