@@ -17,4 +17,4 @@ jobs:
       - name: Build
         run: npm run build --prod
       - name: Test
-        run: npm test-headless
+        run: npm run test-headless
