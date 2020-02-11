@@ -3,7 +3,7 @@
     <span>User</span>
   </mat-toolbar-row>
 </mat-toolbar>
-<mat-progress-bar *ngIf="!loading$ | async" color="accent" mode="indeterminate">
+<mat-progress-bar *ngIf="!(loading$ | async)" color="accent" mode="indeterminate">
 </mat-progress-bar>
 <main>
   <mat-card *ngIf="user$ | async as user">

@@ -10,10 +10,6 @@ import { DomainModule } from './domain/domain.module';
 import { GithubUserRepository } from './domain/repositories/github-user.repository';
 import { GithubUserRepositoryImpl } from './data/repositories/github-user.repository.impl';
 import {
-  GithubLocalDataSource,
-  GithubLocalDataSourceImpl
-} from './data/datasources/github-local.data-source';
-import {
   GithubRemoteDataSourceImpl,
   GithubRemoteDataSource
 } from './data/datasources/github-remote.data-source';
@@ -39,9 +35,7 @@ import { CustomRouterStateSerializer } from './presentation/router/router-state.
   ],
   providers: [
     { provide: GithubUserRepository, useClass: GithubUserRepositoryImpl },
-    { provide: GithubLocalDataSource, useClass: GithubLocalDataSourceImpl },
     { provide: GithubRemoteDataSource, useClass: GithubRemoteDataSourceImpl },
-    { provide: GetGithubUser, useClass: GetGithubUser },
     { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer }
   ],
   bootstrap: [AppComponent]

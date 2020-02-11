@@ -1,7 +1,11 @@
 import { Mapper } from '../../core/mapper';
 import { GithubUserEntity } from '../entities/github-user.entity';
 import { GithubUserModel } from 'src/app/data/models/github-user.model';
+import { Injectable } from '@angular/core';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class GithubUserMapper extends Mapper<
   GithubUserEntity,
   GithubUserModel

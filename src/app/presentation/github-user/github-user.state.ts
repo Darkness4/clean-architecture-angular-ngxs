@@ -8,6 +8,7 @@ import {
   FetchGithubUserSuccess
 } from './github-user.actions';
 import { GithubUserStateModel } from './github-user-state.model';
+import { Injectable } from '@angular/core';
 
 @State<GithubUserStateModel>({
   name: 'github_user',
@@ -17,6 +18,7 @@ import { GithubUserStateModel } from './github-user-state.model';
     loading: false
   }
 })
+@Injectable()
 export class GithubUserState {
   constructor(private getGithubUser: GetGithubUser) {}
 

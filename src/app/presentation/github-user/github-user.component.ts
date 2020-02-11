@@ -11,13 +11,11 @@ import { GithubUserSelectors } from './github-user.selectors';
   styleUrls: ['./github-user.component.scss']
 })
 export class GithubUserComponent implements OnInit {
-  @Select(GithubUserSelectors.getGithubUser) user$: Observable<
-    GithubUserEntity
-  >;
+  @Select(GithubUserSelectors.user) user$: Observable<GithubUserEntity>;
 
-  @Select(GithubUserSelectors.getLoading) loading$: Observable<boolean>;
+  @Select(GithubUserSelectors.loading) loading$: Observable<boolean>;
 
-  @Select(GithubUserSelectors.getError) error$: Observable<any>;
+  @Select(GithubUserSelectors.error) error$: Observable<any>;
 
   constructor(private store: Store) {}
 

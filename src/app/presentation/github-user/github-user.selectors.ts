@@ -4,17 +4,17 @@ import { GithubUserState } from './github-user.state';
 
 export class GithubUserSelectors {
   @Selector([GithubUserState])
-  static getGithubUser(state: GithubUserStateModel) {
+  static user(state: GithubUserStateModel) {
     return state.user;
   }
 
   @Selector([GithubUserState])
-  static getError(state: GithubUserStateModel) {
+  static error(state: GithubUserStateModel) {
     return state.error;
   }
 
   @Selector([GithubUserState])
-  static getLoading(state: GithubUserStateModel) {
+  static loading(state: GithubUserStateModel) {
     return state.loading;
   }
 }
