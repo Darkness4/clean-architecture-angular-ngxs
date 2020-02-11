@@ -17,6 +17,6 @@ jobs:
       - name: Build
         run: npm run build --prod
       - name: Test
-        run: npm test
+        run: npm test -watch false -browsers ChromeHeadless
         env:
           CI: true
