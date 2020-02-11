@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { GithubUserModel } from '../models/github-user.model';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { tap } from 'rxjs/operators';
 
 export abstract class GithubRemoteDataSource {
   abstract fetchUser(username: string): Observable<GithubUserModel>;
